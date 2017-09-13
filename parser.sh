@@ -21,5 +21,6 @@ docker run --rm -it \
 -v "${repos_dir}":/app/repos \
 -v "${current_dir}/parser-out":/app/logs \
 -v "${current_dir}/parser-out":/app/results \
+--env-file=.env \
 --network=gitlean_webnet \
-gitlean-parser
+gitlean/parser
