@@ -1,0 +1,62 @@
+version: "3"
+services:
+  db:
+    image: postgres:9.6
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: gitlean
+      POSTGRES_DB: gitlean
+    restart: on-failure
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    networks:
+      - webnet
+
+  backend:
+    image: gitlean/backend
+    deploy:
+      restart_policy:
+        condition: on-failure
+    restart: on-failure
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT}
+      - DB_USER=root
+      - DB_PASSWORD=gitlean
+    ports:
+      - "${BACKEND_PORT}:3000"
+    networks:
+      - webnet
+    depends_on:
+      - db
+
+  frontend:
+    image: gitlean/frontend
+    deploy:
+      restart_policy:
+        condition: on-failure
+    restart: on-failure
+    environment:
+      - NODE_ENV=production
+      - API_HOST=backend
+      - API_PORT=${BACKEND_PORT}
+    ports:
+      - "${FRONTEND_PORT}:80"
+    networks:
+      - webnet
+    depends_on:
+      - backend
+
+networks:
+  webnet:
+
+volumes:
+  db-data:
