@@ -26,3 +26,4 @@ Setup instruction and scripts for GitLean initialization.
   * If you use Docker Toolbox `localhost:8080` wouldn't work
     * Run `docker-machine ip default`
     * Open `ip_from_previous_comand:8080`
+* To stop GitLean containers run `docker-compose -p=gitlean down` from directory where this repository has been cloned
