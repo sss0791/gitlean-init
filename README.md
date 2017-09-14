@@ -9,8 +9,8 @@ Setup instruction and scripts for GitLean initialization.
 # Instruction
 * Clone this repository
 * Clone repositories you want to analyze with GitLean in some folder. Let's say it has name - `/repos/to/analyze`
-  > **Pls do not use your working copies of repositories. Our analyzer can save you local changes in git stash automatically but it will be safer to avoid it.**
-* Before next steps be sure you are logged in docker.
+  **Pls do not use your working copies of repositories. Our analyzer can save you local changes in git stash automatically but it will be safer to avoid it.**
+* Before next steps be sure you are logged in docker. The best way to login is login via terminal and `docker login` command. Because sometimes login via docker app don't work properly.
 * If you use Docker Toolbox (on Windows below Windows 10 or Windows 10 without Hyper-V) all next commands should be run from `Docker Quickstart Terminal`
 * Run `docker-compose -p=gitlean up -d` from directory where this repository has been cloned
 * Run repository parser
