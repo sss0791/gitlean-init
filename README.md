@@ -8,22 +8,41 @@ Setup instruction and scripts for GitLean initialization.
 
 # Instruction
 * Clone this repository
-* Clone repositories you want to analyze with GitLean in some folder. Let's say it has name - `/repos/to/analyze`
-  **Pls do not use your working copies of repositories. Our analyzer can save you local changes in git stash automatically but it will be safer to avoid it.**
-* Before next steps be sure you are logged in docker. The best way to login is login via terminal and `docker login` command. Because sometimes login via docker app don't work properly.
-* If you use Docker Toolbox (on Windows below Windows 10 or Windows 10 without Hyper-V) all next commands should be run from `Docker Quickstart Terminal`
-* Run `docker-compose -p=gitlean up -d` from directory where this repository has been cloned
+* Clone repositories you want to analyze (let's say `my_repo_1`, `my_repo_2`, `my_repo_3`, etc.) to some parent folder (let's say `/my/parent/dir/with/repos`).
+Folder structure should be like the following:
+  `/my/parent/dir/with/repos/my_repo_1`,
+  `/my/parent/dir/with/repos/my_repo_2`,
+  `/my/parent/dir/with/repos/my_repo_3`,
+  etc.
+
+* **Note:** If you already analyzed some repos and after it you wish to add some extra repos - just add them to `/my/parent/dir/with/repos/` and run repository parser again. Don't remove repos that are already there. Use the same company name that you specified previously.
+
+  **Pls do not use your working copies of repositories.**
+* Before the next steps be sure you are logged in Docker via terminal, use `docker login` command and set your DockerId and password.
+* If you use Docker Toolbox (on Windows below Windows 10 or Windows 10 without Hyper-V) all the next commands should be run from `Docker Quickstart Terminal`
+* Run `docker-compose -p=gitlean up -d` from directory where this repository has been cloned.
 * Run repository parser
-  * on Mac OS or Linux – `./parser.sh -r /repos/to/analyze`
+  * on Mac OS or Linux – `./parser.sh -r /my/parent/dir/with/repos/`
   * on Windows
     * If you use Docker Toolbox (on Windows below Windows 10 or Windows 10 without Hyper-V).
-      * Run `./parser.sh -r /repos/to/analyze`
+      * Run `./parser.sh -r /my/parent/dir/with/repos/`
     * If you use latest Docker for Windows (on Windows 10 with Hyper-V)
-      * Run `.\parser.bat -r \repos\to\analyze`
+      * Run `.\parser.bat -r \my\parent\dir\with\repos\`
 * Follow promt instructions of script. Script will ask you several questions before it starts parsing data from your repositories
-  > *Parsing of repositories could take several hours. Parsing of 1000 comiits usually takes ~10-30min*
+  > *Parsing of repositories could take several hours. Parsing of 1000 commits usually takes ~10-30min*
 * After the script finished you can check GitLean analytics dashboard on `localhost:8080`
   * If you use Docker Toolbox `localhost:8080` wouldn't work
     * Run `docker-machine ip default`
     * Open `ip_from_previous_comand:8080`
 * To stop GitLean containers run `docker-compose -p=gitlean down` from directory where this repository has been cloned
+
+# Troubleshooting
+
+* If you're experiencing some problems on Windows try to check [Docker for Windows. Troubleshoot]( https://docs.docker.com/docker-for-windows/troubleshoot/)
+
+* One of ports could be already used
+  * Check if new port is not in use, let's say 8081:
+    * MacOS: `lsof -n -i:8081 | grep LISTEN`
+    * Windows: `netstat -aon | findstr :8081`
+    * Linux: `netstat -tulpn | grep :8081`
+  * Go to file .env and set chosen port instead of old one.
