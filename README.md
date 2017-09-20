@@ -40,8 +40,8 @@ Folder structure should be like the following:
 
 # Troubleshooting with docker-compose
 
-1. If you're experiencing some problems on Windows try to check [Docker for Windows. Troubleshoot]( https://docs.docker.com/docker-for-windows/troubleshoot/)
-2. One of ports could be already used. We store default ports in file .env. DB_PORT=5432, BACKEND_PORT=3000, FRONTEND_PORT=8080. If Docker failed because it tried to use some already occupied port you should change port manually.
+* If you're experiencing some problems on Windows try to check [Docker for Windows. Troubleshoot]( https://docs.docker.com/docker-for-windows/troubleshoot/)
+* One of ports could be already used. We store default ports in file .env. DB_PORT=5432, BACKEND_PORT=3000, FRONTEND_PORT=8080. If Docker failed because it tried to use some already occupied port you should change port manually.
   * Check if new port is not in use, let's say 8081:
     * MacOS: `lsof -n -i:8081 | grep LISTEN`
     * Windows: `netstat -aon | findstr :8081`
