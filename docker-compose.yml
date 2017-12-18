@@ -9,7 +9,7 @@ services:
         condition: on-failure
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: gitlean
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: gitlean
     restart: on-failure
     ports:
@@ -30,7 +30,7 @@ services:
       - DB_HOST=db
       - DB_PORT=${DB_PORT}
       - DB_USER=root
-      - DB_PASSWORD=gitlean
+      - DB_PASSWORD=${DB_PASSWORD}
     ports:
       - "${BACKEND_PORT}:3000"
     networks:
