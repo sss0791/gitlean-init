@@ -196,8 +196,11 @@ sudo yum -y install git2u
   ```
   ./gitlean-git-parser --reposDir=<repos_dir> --reposConfig=./gtl-out/repo_config_<company>_final.json --update --mergeAuthors
   ```
-* To setup update. Run from `<path-to-builds>/parser`:
+* To setup update:
   ```
-  cd scripts
-  ./setup-update.sh
+  echo "0 0 * * * root PATH=${PATH} cd <path-to-builds>/parser && ./gitlean-git-parser --reposDir=<repos_dir> --reposConfig=./gtl-out/repo_config_<company>_final.json --update >> /var/log/cron.log 2>&1" > /etc/cron.d/update
+  echo "#empty line" >> /etc/cron.d/update
+  chmod 0644 /etc/cron.d/update
+  touch /var/log/cron.log
+  /sbin/service crond start
   ```
