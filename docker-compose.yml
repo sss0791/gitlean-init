@@ -20,7 +20,7 @@ services:
       - webnet
 
   backend:
-    image: gitlean/backend
+    image: gitleantcs/gitlean:backend-bookworm
     deploy:
       restart_policy:
         condition: on-failure
@@ -39,7 +39,7 @@ services:
       - db
 
   frontend:
-    image: gitlean/frontend
+    image: gitleantcs/gitlean:frontend
     deploy:
       restart_policy:
         condition: on-failure
